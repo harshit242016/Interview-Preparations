@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int dir[10] = {0,-1,0,1,0};
+    int dir[5] = {0,-1,0,1,0};
     
     int closedIsland(vector<vector<int>>& grid) 
     {
@@ -46,7 +46,7 @@ public:
         
           grid[i][j] = 1;
         
-          for(int x = 0;x<5;x++)
+          for(int x = 0;x<4;x++)
           {
                 dfs(grid,i+dir[x],j+dir[x+1]);
           }
