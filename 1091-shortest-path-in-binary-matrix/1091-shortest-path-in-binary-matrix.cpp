@@ -1,32 +1,45 @@
 class Solution {
 public:
-        int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
-int res = 1;
-int row = grid.size();
-if (row == 0) return -1;
-int col = grid[0].size();
-if (col == 0 ) return -1;
-if (grid[0][0] != 0 | grid[row-1][col-1] != 0) return -1;
-
-    queue<pair<int, int>> queue;
-    queue.push(make_pair(0,0));
-    vector<vector<int>> directions = {{1,1}, {0,1},{1,0},{0,-1},{-1,0},{-1, -1},{1, -1},{-1, 1}};
-    grid[0][0] = 1;
-    while(!queue.empty()){
-        auto curr = queue.front();
-        int x = curr.first, y = curr.second;
-        if( x == row -1 && y == col -1) return grid[x][y];
-        
-        for(auto direction : directions){
-            int nx = x + direction[0];
-            int ny = y + direction[1];
-            if(nx >= 0 && nx < row && ny >= 0 && ny < col && grid[nx][ny] == 0){
-                queue.push(make_pair(nx,ny));
-                grid[nx][ny] = grid[x][y] + 1;
+    int shortestPathBinaryMatrix(vector<vector<int>>& grid) 
+    {
+        int n = grid.size();
+        if(grid[0][0] != 0 or grid[n-1][n-1]!=0)
+        {
+            return -1;
+        }
+        grid[0][0] = 1;
+        queue<pair<int,int>> q;
+        q.push({0,0});
+        int row[8] = {0,1,1,-1,-1,-1,0,1};
+        int col[8] = {-1,0,-1,-1,0,1,1,1};
+        int temp = 0;
+        while(!q.empty())
+        {
+            temp++;
+            int size = q.size();
+            for(int i = 0;i<size;i++)
+            {
+                int x = q.front().first;
+                int y = q.front().second;
+                q.pop();
+                if(x == n-1 and y == n-1)
+                {
+                    return temp;
+                }   
+                
+                for(int i = 0;i<8;i++)
+                {
+                    int r = x + row[i];
+                    int c = y + col[i];
+                    
+                    if(r>=0 and r<n and c>=0 and c<n and grid[r][c] == 0)
+                    {
+                        grid[r][c] = 1;
+                        q.push({r,c});
+                    }
+                }
             }
         }
-        queue.pop();
+        return -1;
     }
-    return -1;
-}
 };
