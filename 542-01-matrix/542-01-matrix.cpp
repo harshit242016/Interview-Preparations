@@ -24,16 +24,17 @@ public:
         
         while(!q.empty())
         {
-            pair<int,int> curr = q.front();
+            int x = q.front().first;
+            int y = q.front().second;
             q.pop();
             for(int i = 0;i<4;i++)
             {
-                int a = curr.first + dir[i];
-                int b = curr.second + dir[i+1];
-                if((a<n and b<m and a>=0 and b>=0) and v[a][b] == -1)
+                int nx = x + dir[i];
+                int ny = y + dir[i+1];
+                if((nx<n and nx>=0 and ny<m and ny>=0) and v[nx][ny] == -1)
                 {
-                    q.push({a,b});
-                    v[a][b]=v[curr.first][curr.second]+1;
+                    v[nx][ny] = v[x][y] + 1;
+                    q.push({nx,ny});
                 }
             }
         }
