@@ -2,18 +2,22 @@ class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) 
     {
-        vector<vector<int>> result;
+        vector<vector<int>> result; //2d matrix
+        
         if(nums.size()<=2)
         {
-            return result;
+            return result;          //return empty matrix
         }
-        sort(nums.begin(),nums.end());
+        
+        sort(nums.begin(),nums.end());      //sort the array
         
         for(int i = 0;i<nums.size();i++)
         {
-            int a = nums[i];
+            int a = nums[i];        
+            
             if(a>0)
-                break;
+                break;  
+            
             if(i>0 and a==nums[i-1])
             {
                 continue;
