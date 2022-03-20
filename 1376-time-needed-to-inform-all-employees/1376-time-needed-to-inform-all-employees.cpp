@@ -1,25 +1,38 @@
 class Solution {
 public:
-    vector<int>g[100009],info;
-    int vis[100009];
     
-    int dfs(int node){
-        int t=0;
-        vis[node]=1;
-        for(auto x:g[node]){
-            if(vis[x])continue;
-            t=max(t,dfs(x));
+    vector<int> adj[100009];
+    int visited[100009];
+    
+    int dfs(int headID,vector<int> &info)
+    {
+        int time=0;
+        visited[headID]=1;
+        for(auto x:adj[headID])
+        {
+            if(visited[x])
+            {
+                continue;
+            }
+            time = max(time,dfs(x,info));
         }
-        return t+info[node];
+        
+        return time+info[headID];
     }
     
-    int numOfMinutes(int n, int headID, vector<int>& v, vector<int>& informTime) {
-        this->info=informTime;
-        for(int i=0;i<v.size();i++){
-            if(v[i]==-1)continue;
-            g[i].push_back(v[i]);
-            g[v[i]].push_back(i);
+    int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) 
+    {
+        for(int i=0;i<manager.size();i++)
+        {
+            if(manager[i] == -1)
+            {
+                continue;
+            }
+            adj[i].push_back(manager[i]);
+            adj[manager[i]].push_back(i);
         }
-        return dfs(headID);
+        
+        return dfs(headID,informTime);
     }
+    
 };
