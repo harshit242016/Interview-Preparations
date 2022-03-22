@@ -14,7 +14,7 @@ public:
             }
             else
             {
-                s[i] += k;
+                s[i] = (char)k+'a';
                 break;
             }
         }
